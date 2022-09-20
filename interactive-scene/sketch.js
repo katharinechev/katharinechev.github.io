@@ -17,7 +17,7 @@ function draw() {
 
 // blocks to get rid of
 function drawRectangles() { 
-  rect
+  rect(x, y, );
 }
 
 function movingRectangle() {
