@@ -55,7 +55,7 @@ function movingRectangle() {
   }
   rect(mouseX, yRect, 80, cellHeight - 15);
 
-  // need "if start, xRect = mouseX", ensure the rectangle stays until start
+  // need "if start, xRect = mouseX", ensure the rectangle stays until start - use state?
 }
 
 // function ball()
