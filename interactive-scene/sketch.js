@@ -27,12 +27,12 @@ function drawRectangles() {
   let cellWidth = width/14; 
   let cellHeight = height/20;
 
-  // if (cellHeight > cellWidth) {
-  //   cellWidth = cellHeight;
-  // }
-  // else {
-  //   cellHeight = cellWidth;
-  // }
+  if (cellHeight >= cellWidth - 30) {
+    cellWidth = width/7;
+  }
+  else if (cellWidth <= cellHeight + 30) {
+    cellHeight = height/15;
+  }
 
   for (let y = 0; y < 4; y++) {
     for (let x = 0; x < 14; x++) {
