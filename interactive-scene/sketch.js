@@ -8,6 +8,8 @@
 
 let cellWidth;
 let cellHeight;
+let xRect;
+let yRect;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -16,6 +18,7 @@ function setup() {
 
 function draw() {
   drawRectangles();
+  movingRectangle();
 }
 
 // window resizing
@@ -24,8 +27,8 @@ function windowResized() {
 }
 // blocks to get rid of
 function drawRectangles() {
-  let cellWidth = width/14; 
-  let cellHeight = height/20;
+  cellWidth = width/14; 
+  cellHeight = height/20;
 
   if (cellHeight >= cellWidth - 30) {
     cellWidth = width/7;
@@ -41,6 +44,10 @@ function drawRectangles() {
   }
 }
 
-// function movingRectangle() {}
+function movingRectangle() {
+  xRect = width/2;
+  yRect = height/5 *4;
+  rect(xRect, yRect, 80, cellHeight - 15)
+}
 
 // function ball()
