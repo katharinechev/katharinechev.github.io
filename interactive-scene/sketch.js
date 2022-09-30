@@ -8,8 +8,9 @@
 
 let cellWidth;
 let cellHeight;
-let xRect;
-let yRect;
+let xRect = width/2;
+let yRect = height/5 *4;
+let state = "startpg";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -18,12 +19,21 @@ function setup() {
 function draw() {
   background(220);
   drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
+  startCheck();
   movingRectangle();
 }
 
 // window resizing
 function windowResized() {
   setup();
+}
+
+function startCheck() {
+  if (state === "startpg") {
+    if (mouseIsPressed()) {
+      state = "start";
+    }
+  }
 }
 
 // blocks to get rid of
@@ -47,13 +57,15 @@ function drawRectangles() {
 }
 
 function movingRectangle() {
-  xRect = width/2;
-  yRect = height/5 *4;
-
-  if (mouseX > width-80) {
-    mouseX = width-80;
+  if (state === "startpg") {
+    rect(xRect, yRect, 80, cellHeight - 15);
   }
-  rect(mouseX, yRect, 80, cellHeight - 15);
+  else if (state === "start") {
+    if (mouseX > width-80) {
+    mouseX = width-80;
+    }
+    rect(mouseX, yRect, 80, cellHeight - 15);
+  }
 
   // need "if start, xRect = mouseX", ensure the rectangle stays until start - use state?
 }
