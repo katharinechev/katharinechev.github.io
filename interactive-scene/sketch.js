@@ -6,11 +6,11 @@
 // - describe what you did to take this project "above and beyond"
 
 
+let state = "start";
 let cellWidth;
 let cellHeight;
 let xRect = width/2;
 let yRect = height/5 *4;
-let state = "startpg";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -18,9 +18,13 @@ function setup() {
 
 function draw() {
   background(220);
-  drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
-  startCheck();
-  movingRectangle();
+  if (state === "start") {
+    startScreen();
+  }
+  if (state === "main") {
+    drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
+    movingRectangle();
+  }
 }
 
 // window resizing
@@ -28,13 +32,26 @@ function windowResized() {
   setup();
 }
 
-function startCheck() {
-  if (state === "startpg") {
-    if (mouseIsPressed()) {
-      state = "start";
-    }
+// start screen code
+function mousePressed() {
+  if (state ==="start" && mouseInsideRect(400, 700, 400, 550)) {
+    state = "main";
   }
 }
+function startScreen() {
+  if (mouseInsideRect(400, 700, 400, 550)) {
+    fill("gray");
+  }
+  else {
+    fill("black");
+  }
+  rect(400, 400, 300, 150);
+}
+
+function mouseInsideRect(left, right, top, bottom) {
+  return mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
+}
+
 
 // blocks to get rid of
 function drawRectangles() {
@@ -57,17 +74,12 @@ function drawRectangles() {
 }
 
 function movingRectangle() {
-  if (state === "startpg") {
-    rect(xRect, yRect, 80, cellHeight - 15);
-  }
-  else if (state === "start") {
-    if (mouseX > width-80) {
+  if (mouseX > width-80) {
     mouseX = width-80;
-    }
-    rect(mouseX, yRect, 80, cellHeight - 15);
   }
-
-  // need "if start, xRect = mouseX", ensure the rectangle stays until start - use state?
+  rect(mouseX, yRect, 80, cellHeight - 15);
 }
+
+
 
 // function ball()
