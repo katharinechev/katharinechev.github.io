@@ -20,6 +20,7 @@ function draw() {
   background(220);
   if (state === "start") {
     startScreen();
+    // insert image for start screen
   }
   if (state === "main") {
     drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
