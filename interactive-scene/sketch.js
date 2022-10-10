@@ -9,8 +9,7 @@
 let state = "start";
 let cellWidth;
 let cellHeight;
-let xRect = width/2;
-let yRect = height/5 *4;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -22,7 +21,7 @@ function draw() {
     startScreen();
     // insert image for start screen
   }
-  if (state === "main") {
+  if (state === "game") {
     drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
     movingRectangle();
   }
@@ -36,7 +35,7 @@ function windowResized() {
 // start screen code
 function mousePressed() {
   if (state ==="start" && mouseInsideRect(400, 700, 400, 550)) {
-    state = "main";
+    state = "game";
   }
 }
 function startScreen() {
@@ -75,10 +74,15 @@ function drawRectangles() {
 }
 
 function movingRectangle() {
-  if (mouseX > width-80) {
-    mouseX = width-80;
+  let xRect = width/2;
+  let yRect = height/5 *4;
+  
+  if (state === "game") {
+    if (mouseX > width-80) {
+      mouseX = width-80;
+    }
+    rect(mouseX, yRect, 80, cellHeight - 15);
   }
-  rect(mouseX, yRect, 80, cellHeight - 15);
 }
 
 
