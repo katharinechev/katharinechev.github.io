@@ -5,6 +5,8 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+// make keyboard interaction be space for ball to start
+// mouse interaction is moving rectangle
 
 let state = "start";
 let cellWidth;
@@ -34,6 +36,8 @@ function windowResized() {
 
 // start screen code
 function mousePressed() {
+  // need to make button in middle, centre alignment so then starts middle for rectangle
+
   if (state ==="start" && mouseInsideRect(400, 700, 400, 550)) {
     state = "game";
   }
@@ -57,6 +61,7 @@ function mouseInsideRect(left, right, top, bottom) {
 function drawRectangles() {
   cellWidth = width/14; 
   cellHeight = height/20;
+  fill("white");
 
   // window resizing approx consistancy
   if (cellHeight >= cellWidth - 30) {
@@ -74,9 +79,9 @@ function drawRectangles() {
 }
 
 function movingRectangle() {
-  let xRect = width/2;
+  // let xRect = width/2; // not used atm
   let yRect = height/5 *4;
-  
+
   if (state === "game") {
     if (mouseX > width-80) {
       mouseX = width-80;
@@ -87,4 +92,9 @@ function movingRectangle() {
 
 
 
-// function ball()
+function ball() {
+  
+  if (state === "game") {
+
+  }
+}
