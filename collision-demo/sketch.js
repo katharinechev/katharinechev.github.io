@@ -1,5 +1,5 @@
-// Project Title
-// Your Name
+// Collision demo
+// Katharine
 // Date
 //
 // Extra for Experts:
