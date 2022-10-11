@@ -18,7 +18,7 @@ function setup() {
 function draw() {
   background(220);
   if (state === "start") {
-    rectMode(CENTER)
+    rectMode(CENTER);
     startScreen();
     // insert image for start screen
   }
