@@ -19,18 +19,20 @@ let yButton;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  rectMode(CENTER);
 }
 
 function draw() {
   background(220);
   if (state === "start") {
+    rectMode(CENTER)
     startScreen();
     // insert image for start screen
   }
   if (state === "game") {
+    rectMode(CORNER);
     drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
     movingRectangle();
+    ball();
   }
 }
 
@@ -40,15 +42,6 @@ function windowResized() {
 }
 
 // start screen code
-function mousePressed() {
-  // need to make button in middle, centre alignment so then starts middle for rectangle
-  let xButton = width/2;
-  let yButton = height/2;
-
-  if (state ==="start" && mouseInsideRect(xButton-200, xButton+200, yButton-80, yButton+80)) {
-    state = "game";
-  }
-}
 function startScreen() {
   if (mouseInsideRect(xButton-200, xButton+200, yButton-100, yButton+50)) {
     fill("gray");
@@ -57,6 +50,16 @@ function startScreen() {
     fill("black");
   }
   rect(width/2, height/2, 400, 160);
+}
+
+function mousePressed() {
+  // need to make button in middle, centre alignment so then starts middle for rectangle
+  let xButton = width/2;
+  let yButton = height/2;
+
+  if (state ==="start" && mouseInsideRect(xButton-200, xButton+200, yButton-80, yButton+80)) {
+    state = "game";
+  }
 }
 
 function mouseInsideRect(left, right, top, bottom) {
@@ -101,7 +104,7 @@ function movingRectangle() {
 
 function ball() {
   ballX = width/2;
-  ballY = height/2;
+  ballY = height/5 *3;
   
 
   if (state === "game") {
