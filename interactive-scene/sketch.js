@@ -7,6 +7,7 @@
 
 // make keyboard interaction be space for ball to start
 // mouse interaction is moving rectangle
+// https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
 
 let state = "start";
 let cellWidth, cellHeight, yRect, xButton, yButton, ballX, ballY;
