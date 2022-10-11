@@ -9,13 +9,7 @@
 // mouse interaction is moving rectangle
 
 let state = "start";
-let cellWidth;
-let cellHeight;
-let yRect
-let ballX;
-let ballY;
-let xButton;
-let yButton;
+let cellWidth, cellHeight, yRect, xButton, yButton, ballX, ballY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -100,8 +94,6 @@ function movingRectangle() {
   }
 }
 
-
-
 function ball() {
   ballX = width/2;
   ballY = height/5 *3;
@@ -111,3 +103,5 @@ function ball() {
     circle(ballX, ballY, 25);
   }
 }
+
+// function bounce() {} need to watch collision demo to implement
