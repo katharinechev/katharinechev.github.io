@@ -11,10 +11,15 @@
 let state = "start";
 let cellWidth;
 let cellHeight;
-
+let yRect
+let ballX;
+let ballY;
+let xButton;
+let yButton;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  rectMode(CENTER);
 }
 
 function draw() {
@@ -37,19 +42,21 @@ function windowResized() {
 // start screen code
 function mousePressed() {
   // need to make button in middle, centre alignment so then starts middle for rectangle
+  let xButton = width/2;
+  let yButton = height/2;
 
-  if (state ==="start" && mouseInsideRect(400, 700, 400, 550)) {
+  if (state ==="start" && mouseInsideRect(xButton-200, xButton+200, yButton-80, yButton+80)) {
     state = "game";
   }
 }
 function startScreen() {
-  if (mouseInsideRect(400, 700, 400, 550)) {
+  if (mouseInsideRect(xButton-200, xButton+200, yButton-100, yButton+50)) {
     fill("gray");
   }
   else {
     fill("black");
   }
-  rect(400, 400, 300, 150);
+  rect(width/2, height/2, 400, 160);
 }
 
 function mouseInsideRect(left, right, top, bottom) {
@@ -80,7 +87,7 @@ function drawRectangles() {
 
 function movingRectangle() {
   // let xRect = width/2; // not used atm
-  let yRect = height/5 *4;
+  yRect = height/5 *4;
 
   if (state === "game") {
     if (mouseX > width-80) {
@@ -93,8 +100,11 @@ function movingRectangle() {
 
 
 function ball() {
+  ballX = width/2;
+  ballY = height/2;
   
-  if (state === "game") {
 
+  if (state === "game") {
+    circle(ballX, ballY, 25);
   }
 }
