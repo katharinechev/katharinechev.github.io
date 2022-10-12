@@ -16,6 +16,8 @@ let dy = 6;
 let score = 0;
 let circleRadius = 25;
 let cellWidth, cellHeight, yRect, xButton, yButton, circleX, circleY;
+// let circleX = 100;
+// let circleY = 150;
 
 // const circle = {
 //   x: movement + 50,
@@ -25,6 +27,8 @@ let cellWidth, cellHeight, yRect, xButton, yButton, circleX, circleY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  circleX = width/2;
+  circleY = height/2;
   
 }
 
@@ -39,7 +43,9 @@ function draw() {
     rectMode(CORNER);
     drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
     movingRectangle();
-    ball();
+    drawBall();
+    moveBall();
+    ballPhysics();
   }
 }
 
@@ -60,7 +66,6 @@ function startScreen() {
 }
 
 function mousePressed() {
-  // need to make button in middle, centre alignment so then starts middle for rectangle
   let xButton = width/2;
   let yButton = height/2;
 
@@ -107,37 +112,42 @@ function movingRectangle() {
   }
 }
 
-function ball() {
-  circleX = width/2;
-  circleY = height - cellHeight;
- 
+function drawBall() {
 
   if (state === "game") {
     ellipse(circleX, circleY, circleRadius, circleRadius);
-    if (circle.y <= 0) {
-      dy = -dy;
-      score++;
-    }
-    
-    if (circleY >= height && circleX > width && circleX <= width/2) {
-      dy = -dy;
-      if (dx > 0) {
-        dx = dx;
-      }
-      if (dx < 0) {
-        dx = -dx
-      }
-    }
+  }
+}
 
-    if (circleY >= height && circleX > width/2) {
-      dy = -dy;
-      if (dx >0) dx = dx;
-      if (dx < 0) dx = -dx;
-    }
+function moveBall() {
+  if (state === "game") {
     circleX += dx;
     circleY += dy;
   }
-
 }
 
-// function bounce() {} need to watch collision demo to implement
+function ballPhysics() {
+  if (state === "game") {
+
+    // ellipse(circleX, circleY, circleRadius, circleRadius);
+    if (circleX >= width - circleRadius) {
+      dx *= -1;
+    }
+
+    // if (circleY <= 0) {
+    //   dy = -dy;
+    //   score++;
+    // }
+    
+    // if (circleY >= height && circleX > width && circleX <= width/2) {
+    //   dy = -dy;
+
+    // }
+
+    // if (circleY >= height && circleX > width/2 && circleX <= width -170) {
+    //   dy = -dy;
+      
+    // }
+
+  }
+}
