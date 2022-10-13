@@ -15,6 +15,7 @@ let dx = 6;
 let dy = 6;
 let score = 0;
 let circleRadius = 25;
+let hit = false;
 let cellWidth, cellHeight, yRect, xButton, yButton, circleX, circleY;
 // let circleX = 100;
 // let circleY = 150;
@@ -80,8 +81,8 @@ function mouseInsideRect(left, right, top, bottom) {
 
 
 // blocks to get rid of
-function drawRectangles() {
-  cellWidth = width/14; 
+function createBlocks() {
+  cellWidth = width/14;
   cellHeight = height/20;
   fill("white");
 
@@ -93,12 +94,28 @@ function drawRectangles() {
     cellHeight = height/15;
   }
 
-  for (let y = 0; y < 4; y++) {
-    for (let x = 0; x < 14; x++) {
-      rect(x*cellWidth, y*cellHeight +175, cellWidth, cellHeight);
-    }
-  }
+  
 }
+
+// function drawRectangles() {
+//   cellWidth = width/14; 
+//   cellHeight = height/20;
+//   fill("white");
+
+//   // window resizing approx consistancy
+//   if (cellHeight >= cellWidth - 30) {
+//     cellWidth = width/7;
+//   }
+//   else if (cellWidth <= cellHeight + 30) {
+//     cellHeight = height/15;
+//   }
+
+//   for (let y = 0; y < 4; y++) {
+//     for (let x = 0; x < 14; x++) {
+//       rect(x*cellWidth, y*cellHeight +175, cellWidth, cellHeight);
+//     }
+//   }
+// }
 
 function movingRectangle() {
   // let xRect = width/2; // not used atm
