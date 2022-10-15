@@ -11,12 +11,18 @@
 
 
 let state = "start";
+let left = false;
+let right = false;
+let hit = false;
 let dx = 6;
 let dy = 6;
 let score = 0;
 let circleRadius = 25;
-let hit = false;
-let cellWidth, cellHeight, yRect, xButton, yButton, circleX, circleY;
+let columns = 14;
+let rows = 8;
+let bricks = [];
+let movement, cellWidth, cellHeight, yRect, xButton, yButton, circleX, circleY;
+let brickColour = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "white"];
 // let circleX = 100;
 // let circleY = 150;
 
@@ -28,8 +34,10 @@ let cellWidth, cellHeight, yRect, xButton, yButton, circleX, circleY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  circleX = width/2;
+  movement = width/2;
+  circleX = movement - 50;
   circleY = height/2;
+  createBricks(); 
   
 }
 
@@ -42,7 +50,8 @@ function draw() {
   }
   if (state === "game") {
     rectMode(CORNER);
-    drawRectangles(); //maybe move up to setup? will it cause problem to get rid of blocks if in draw
+    fill("white");
+    drawBricks();
     movingRectangle();
     drawBall();
     moveBall();
@@ -52,18 +61,21 @@ function draw() {
 
 // window resizing
 function windowResized() {
+  state = "start"
   setup();
 }
 
 // start screen code
 function startScreen() {
-  if (mouseInsideRect(xButton-200, xButton+200, yButton-100, yButton+50)) {
-    fill("gray");
+  if (state === "start") {
+    if (mouseInsideRect(xButton-200, xButton+200, yButton-100, yButton+50)) {
+      fill("gray");
+    }
+    else {
+      fill("black");
+    }
+    rect(width/2, height/2, 400, 160);
   }
-  else {
-    fill("black");
-  }
-  rect(width/2, height/2, 400, 160);
 }
 
 function mousePressed() {
@@ -81,10 +93,11 @@ function mouseInsideRect(left, right, top, bottom) {
 
 
 // blocks to get rid of
-function createBlocks() {
-  cellWidth = width/14;
-  cellHeight = height/20;
-  fill("white");
+function createBricks() {
+  cellWidth = width/columns; 
+  cellHeight = height/30;
+  // fill(random(blockColour));
+  // fill("white")
 
   // window resizing approx consistancy
   if (cellHeight >= cellWidth - 30) {
@@ -94,40 +107,48 @@ function createBlocks() {
     cellHeight = height/15;
   }
 
-  
+  for (let i = 0; i < columns; i++) {
+    for (let j = 0; j < rows; j++) {
+      let brick = {
+        x: i * 134 + 20,
+        y: j * 30 + 30,
+        w: cellWidth,
+        h: cellHeight,
+        colour: brickColour[j]
+      }
+      bricks.push(brick)
+      // rect(i*cellWidth, j*cellHeight +175, cellWidth, cellHeight);
+    }
+  }
 }
 
-// function drawRectangles() {
-//   cellWidth = width/14; 
-//   cellHeight = height/20;
-//   fill("white");
-
-//   // window resizing approx consistancy
-//   if (cellHeight >= cellWidth - 30) {
-//     cellWidth = width/7;
-//   }
-//   else if (cellWidth <= cellHeight + 30) {
-//     cellHeight = height/15;
-//   }
-
-//   for (let y = 0; y < 4; y++) {
-//     for (let x = 0; x < 14; x++) {
-//       rect(x*cellWidth, y*cellHeight +175, cellWidth, cellHeight);
-//     }
-//   }
-// }
+function drawBricks() {
+  bricks.forEach(brick => {
+    fill(brick.colour)
+    rect(brick.x, brick.y, brick.w, brick.h)
+  })
+}
 
 function movingRectangle() {
   // let xRect = width/2; // not used atm
-  yRect = height - cellHeight +15;
+  yRect = height - cellHeight +10;
 
   if (state === "game") {
-    if (mouseX > width-80) {
-      mouseX = width-80;
+    // if (mouseX > width-80) {
+    //   mouseX = width-80;
+    // }
+    rect(movement, yRect, 100, cellHeight - 10);
+    if (keyIsDown(65) && movement > 0) {
+      movement -= 10;
     }
-    rect(mouseX, yRect, 80, cellHeight - 15);
+    if (keyIsDown(68) && movement < width-100) {
+      movement += 10;
+    }
   }
 }
+
+
+
 
 function drawBall() {
 
