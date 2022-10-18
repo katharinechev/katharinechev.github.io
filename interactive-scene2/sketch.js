@@ -29,7 +29,7 @@ function setup() {
     x: movement + 50,
     y: height/2,
     diameter: 25
-  }
+  };
   xButton = width/2;
   yButton = height/2;
   createBricks(); 
@@ -76,17 +76,17 @@ function startScreen() {
     textAlign(CENTER);
     textStyle(BOLD);
     textSize(80);
-    fill("#2849FD")
+    fill("#2849FD");
     textFont("Helvetica");
     text("Atari Breakout", width/2, height/4 + 40);
-    fill("black")
-    text("Play", width/2, height/2+30)
+    fill("black");
+    text("Play", width/2, height/2+30);
     textSize(30);
     textStyle(BOLDITALIC);
-    fill("#5410BB")
+    fill("#5410BB");
     text("by Katharine C", width/2, height/4 + 100);
     textStyle(BOLDITALIC);
-    text("Use the W and A to move the platform back and forth", width/2, height/3 *2 +10)
+    text("Use the W and A to move the platform back and forth", width/2, height/3 *2 +10);
   }
 }
 
@@ -112,17 +112,17 @@ function createBricks() {
         w: cellWidth,
         h: cellHeight,
         colour: brickColour[j]
-      }
-      bricks.push(brick)
+      };
+      bricks.push(brick);
     }
   }
 }
 
 function drawBricks() {
   bricks.forEach(function(brick) {
-    fill(brick.colour)
-    rect(brick.x, brick.y, brick.w, brick.h)
-  })
+    fill(brick.colour);
+    rect(brick.x, brick.y, brick.w, brick.h);
+  });
 }
 
 function slider() {
@@ -176,16 +176,16 @@ function ballPhysics() {
     bricks.forEach(function(whichBrick, index) {
       if (hitBrick(ball, whichBrick)) {
         dy *= -1;
-        score++
-        bricks.splice(index, 1)
+        score++;
+        bricks.splice(index, 1);
       }
-    })
+    });
   }
 }
 
 function hitBrick(ball, brick) {
   if (ball.y - cellHeight < brick.y && ball.x > brick.x && ball.x <= brick.x + 134) {
-    return true
+    return true;
   }
 }
 
@@ -209,7 +209,7 @@ function lifeRestart() {
 function scoreText() {
   fill("black");
   textSize(30);
-  textAlign(LEFT)
+  textAlign(LEFT);
   textStyle(BOLD);
   text("Score: " + score, width - 160, 40);
 }
@@ -225,12 +225,12 @@ function lifeNum() {
 function gameEndCheck() {
   if (lives === 0 || score === 112) {
     gameEnd = true;
-    }
+  }
 }
 
 function gameOver() {
   if (gameEnd) {
-    fill("black")
+    fill("black");
     textAlign(CENTER);
     textStyle(BOLD);
     textSize(50);
