@@ -8,7 +8,7 @@
 const ROWS = 4;
 const COLS = 4;
 let numSquares = ROWS*COLS;
-let cellWidth, cellHeight, grid;
+let cellWidth, cellHeight, grid, num;
 
 
 function setup() {
@@ -31,12 +31,9 @@ function createRandom2dArray(COLS, ROWS) {
   for (let y = 0; y < ROWS; y++) {
     emptyArray.push([]);
     for (let x = 0; x < COLS; x++) {
-      // let num = Math.floor(random(1, numSquares-2));
-      // if (emptyArray.includes(num) || emptyArray[y][x].includes(num)) {
-      //   num = Math.floor(random(1, numSquares));
-      // }
-      // emptyArray[y].push(num);
-      emptyArray[y].push(0);
+      num = Math.floor(random(1, numSquares-2));
+      emptyArray[y].push(num);
+      // emptyArray[y].push(0);
     }
   }
   return emptyArray;
