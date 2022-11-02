@@ -3,11 +3,17 @@
 // Nov 1
 //
 
-const ROWS = 10;
-const COLS = 10;
+const ROWS = 20;
+const COLS = 20;
 let playerX = 0;
 let playerY = 0;
-let cellWidth, cellHeight, grid;
+let cellWidth, cellHeight, grid, stoneImg, grassImg, wolfImg;
+
+function preload() {
+  stoneImg = loadImage("stone.png");
+  grassImg = loadImage("grass.png");
+  wolfImg = loadImage("howl.png");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -95,15 +101,19 @@ function displayGrid(grid) {
   for (let y = 0; y < ROWS; y++) {
     for (let x = 0; x < COLS; x++) {
       if (grid[y][x] === 0) {
-        fill("white");
+        // fill("white");
+        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 1) {
-        fill("black");
+        // fill("black");
+        image(stoneImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 9) {
-        fill("red");
+        // fill("red");
+        // rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(wolfImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
-      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
   }
 }
