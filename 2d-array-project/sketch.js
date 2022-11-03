@@ -28,10 +28,23 @@ function draw() {
 
 function createRandom2dArray(COLS, ROWS) {
   let emptyArray = [];
+  let numHere = false;
   for (let y = 0; y < ROWS; y++) {
     emptyArray.push([]);
     for (let x = 0; x < COLS; x++) {
       num = Math.floor(random(1, numSquares-2));
+      if () {
+        numHere = true;
+      }
+      while (numHere) {
+        num = Math.floor(random(1, numSquares-2));
+      }
+
+      // if (emptyArray[y].includes(num)) {
+      //   while (emptyArray[y].includes(num)) {
+      //     num = Math.floor(random(1, numSquares-2));
+      //   }
+      // }
       emptyArray[y].push(num);
       // emptyArray[y].push(0);
     }
