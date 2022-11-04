@@ -8,6 +8,7 @@
 const ROWS = 4;
 const COLS = 4;
 let numSquares = ROWS*COLS;
+let num4x4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 let cellWidth, cellHeight, grid, num;
 
 
@@ -32,26 +33,33 @@ function createRandom2dArray(COLS, ROWS) {
   for (let y = 0; y < ROWS; y++) {
     emptyArray.push([]);
     for (let x = 0; x < COLS; x++) {
-      num = Math.floor(random(1, numSquares-2));
-      if () {
-        numHere = true;
-      }
-      while (numHere) {
-        num = Math.floor(random(1, numSquares-2));
-      }
+      emptyArray.push
+      // num = Math.floor(random(1, numSquares-2));
+      // if () {
+      //   numHere = true;
+      // }
+      // while (numHere) {
+      //   num = Math.floor(random(1, numSquares-2));
+      // }
 
       // if (emptyArray[y].includes(num)) {
       //   while (emptyArray[y].includes(num)) {
       //     num = Math.floor(random(1, numSquares-2));
       //   }
       // }
-      emptyArray[y].push(num);
+      // emptyArray[y].push(num);
       // emptyArray[y].push(0);
     }
+    
   }
   return emptyArray;
 }
 
+// function numIntoArray(grid) {
+//   grid.array.forEach(element => {
+//     grid.array.push(shuffle(num4x4));
+//   });
+// }
 
 function displayGrid(grid) {
   for (let y = 0; y < ROWS; y++) {
