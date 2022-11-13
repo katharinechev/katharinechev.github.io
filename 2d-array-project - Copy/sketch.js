@@ -37,7 +37,7 @@ function setup() {
 
 function draw() {
   background(220);
-  displayGrid();
+  displayTiles();
   
 }
 
@@ -73,61 +73,53 @@ function mousePressed() {
 // attempt make it into 2d array ^
 function makeTiles() {
   for (let y = 0; y < rows; y++) {
-    tiles.push([]);
+    board.push([]);
     for (let x = 0; x < cols; x++) {
       loadPixels();
       let img = createImage(Math.floor(cellWidth), Math.floor(cellHeight));
       img.copy(koalas, x*cellWidth*cols, y*cellHeight*rows, cellWidth*cols, cellHeight*rows, x, y, cellWidth, cellHeight);
       let index = x + y*cols;
       let tile = new Tile(index, img);
-      board.push(index);
-      tiles[y].push(tile);
+      board[y].push(index);
+      tiles.push(tile);
     }
   }
 
-  tiles[3].pop();
+  tiles.pop();
   // tiles[3].push(-1);
-  board.pop();
-  board.push(-1);
-  // board = [...tiles];
+  board[3].pop();
+  board[3].push(-1);
+
 }
 
 function displayTiles() {
   for (let y = 0; y < cols; y++) {
     for (let x = 0; x < rows; x++) {
-      let index = x + y * cols;
-      let img;
-      let tileIndex = board[index];
-      if (tileIndex > -1) {
-
-        if (tileIndex <4) {
-          img = tiles[0][tileIndex].img;
-        }
-        else if (tileIndex <8) {
-          img = tiles[1][tileIndex].img;
-        }
-        else if (tileIndex <12) {
-          img = tiles[2][tileIndex].img;
-        }
-        else if (tileIndex <16) {
-          img = tiles[3][tileIndex].img;
-        }
-        // let img = tiles[tileIndex].img;
-        image(img, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
+      let tileIndex = board[y][x];
+      let tileImage;
+      console.log(board[y][x]);
+      if (tileIndex !== -1) {
+        tileImage = tiles[tileIndex].img;
+        image(tileImage, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
+        // console.log(tileImage);
       }
-      // console.log(board[index]);
       // console.log(tileIndex);
-      // noFill();
-      // rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
-    } 
-  }
-}
-
-function displayGrid() {
-  for (let y = 0; y < cols; y++) {
-    for (let x = 0; x < rows; x++) {
       noFill();
       rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
     } 
   }
 }
+
+// function isNeighbour() {
+//   let blank;
+//   for (let y = 0; y < cols; y++) {
+//     for (let x = 0; x < rows; x++) {
+//       if (board[y][x] === -1) {
+//         blank = board[y][x];
+//         return blank;
+//       }
+//     } 
+//   }
+
+  
+// }
