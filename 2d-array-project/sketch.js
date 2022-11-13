@@ -8,6 +8,7 @@
 let rows = 4;
 let cols = 4;
 // let numSquares = rows*cols;
+let imgScaler = 0.5;
 let tiles = []; 
 let board = []; // order of tiles
 let cellWidth, cellHeight, grid, num, koalas;
@@ -71,7 +72,8 @@ function draw() {
 function makeTiles() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      let img = createImage(Math.floor(cellWidth*cols), Math.floor(cellHeight*rows));
+      loadPixels();
+      let img = createImage(cellWidth, cellHeight);
       img.copy(koalas, x*cellWidth*cols, y*cellHeight*rows, cellWidth*cols, cellHeight*rows, x, y, cellWidth, cellHeight);
       let index = x + y*cols;
       let tile = new Tile(index, img);
@@ -92,7 +94,7 @@ function displayGrid() {
       let tileIndex = board[index];
       if (tileIndex > -1) {
         let img = tiles[tileIndex].img;
-        image(img, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth*4, cellHeight*4);
+        image(img, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
       }
       noFill();
       rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
