@@ -5,67 +5,97 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-const ROWS = 4;
-const COLS = 4;
-let numSquares = ROWS*COLS;
-let num4x4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-let cellWidth, cellHeight, grid, num;
+let rows = 4;
+let cols = 4;
+// let numSquares = rows*cols;
+let tiles = []; 
+let board = []; // order of tiles
+let cellWidth, cellHeight, grid, num, koalas;
 
+class Tile {
+  constructor(index, img) {
+    this.index = index;
+    this.img = img;
+  }
+}
+
+function preload() {
+  koalas = loadImage("koalas.jpg");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  cellHeight = width/3/ROWS;
-  cellWidth = height/3/COLS;
+  cellHeight = width/3/rows;
+  cellWidth = height/3/cols;
   if (cellHeight > cellWidth) {
     cellWidth = cellHeight;
   }
-  grid = createRandom2dArray(COLS, ROWS);
+  makeTiles();
+
 }
 
 function draw() {
   background(220);
-  displayGrid(grid);
+  displayGrid();
+  
 }
 
-function createRandom2dArray(COLS, ROWS) {
-  let emptyArray = [];
-  let numHere = false;
-  for (let y = 0; y < ROWS; y++) {
-    emptyArray.push([]);
-    for (let x = 0; x < COLS; x++) {
-      emptyArray.push
-      // num = Math.floor(random(1, numSquares-2));
-      // if () {
-      //   numHere = true;
-      // }
-      // while (numHere) {
-      //   num = Math.floor(random(1, numSquares-2));
-      // }
-
-      // if (emptyArray[y].includes(num)) {
-      //   while (emptyArray[y].includes(num)) {
-      //     num = Math.floor(random(1, numSquares-2));
-      //   }
-      // }
-      // emptyArray[y].push(num);
-      // emptyArray[y].push(0);
-    }
-    
-  }
-  return emptyArray;
-}
-
-// function numIntoArray(grid) {
-//   grid.array.forEach(element => {
-//     grid.array.push(shuffle(num4x4));
-//   });
+// create grid w numbers in order (1-15), blank space = -1
+// function create2dArray(cols, rows) {
+//   let emptyArray = [];
+//   for (let y = 0; y < rows; y++) {
+//     emptyArray.push([]);
+//     for (let x = 0; x < cols; x++) {
+//       emptyArray[y].push(x + y * cols);
+//     }
+//   }
+//   emptyArray[3].pop();
+//   emptyArray[3].push(-1);
+//   return emptyArray;
 // }
 
-function displayGrid(grid) {
-  for (let y = 0; y < ROWS; y++) {
-    for (let x = 0; x < COLS; x++) {
-      fill("white");
-      rect(x*cellWidth + (width/2-0.5*COLS*cellWidth), y*cellHeight + (height/5*3-0.5*COLS*cellWidth), cellWidth, cellHeight);
+// function mousePressed() {
+//   let xPosition = Math.floor(mouseX/cellWidth);
+//   let yPosition = Math.floor(mouseY/cellHeight);
+
+//   if (grid[yPosition][xPosition] === 0) {
+//     grid[yPosition][xPosition] = 1;
+//   }
+//   else if (grid[yPosition][xPosition] === 1) {
+//     grid[yPosition][xPosition] = 0;
+//   }
+  
+// }
+
+// chop photo into tiles
+function makeTiles() {
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      let img = createImage(Math.floor(cellWidth*cols), Math.floor(cellHeight*rows));
+      img.copy(koalas, x*cellWidth*cols, y*cellHeight*rows, cellWidth*cols, cellHeight*rows, x, y, cellWidth, cellHeight);
+      let index = x + y*cols;
+      let tile = new Tile(index, img);
+      board.push(index);
+      tiles.push(tile);
     }
+  }
+
+  tiles.pop();
+  board.pop();
+  board.push(-1);
+}
+
+function displayGrid() {
+  for (let y = 0; y < cols; y++) {
+    for (let x = 0; x < rows; x++) {
+      let index = x + y * cols;
+      let tileIndex = board[index];
+      if (tileIndex > -1) {
+        let img = tiles[tileIndex].img;
+        image(img, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth*4, cellHeight*4);
+      }
+      noFill();
+      rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
+    } 
   }
 }
