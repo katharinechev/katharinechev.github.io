@@ -101,3 +101,8 @@ function displayGrid() {
     } 
   }
 }
+
+
+function isNeighbour() {
+  if (board[])
+}
