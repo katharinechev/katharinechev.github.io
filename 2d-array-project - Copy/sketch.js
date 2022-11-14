@@ -27,10 +27,11 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   cellHeight = width/3/rows;
-  cellWidth = height/3/cols;
-  if (cellHeight > cellWidth) {
-    cellWidth = cellHeight;
-  }
+  cellWidth = cellHeight;
+  // cellWidth = height/3/cols;
+  // if (cellHeight > cellWidth) {
+  //   cellWidth = cellHeight;
+  // }
   makeTiles();
   // grid = create2dArray(cols, rows);
 }
@@ -89,7 +90,6 @@ function makeTiles() {
   }
 
   tiles.pop();
-  // tiles[3].push(-1);
   board[3].pop();
   board[3].push(-1);
 
@@ -141,5 +141,8 @@ function isNeighbour(xPosition, yPosition) {
 }
 
 function swap(xPosition, yPosition, board) {
+  let nextTurn = board;
+
+  
 
 }
