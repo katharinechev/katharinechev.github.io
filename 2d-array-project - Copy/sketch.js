@@ -66,6 +66,9 @@ function mousePressed() {
   //   grid[yPosition][xPosition] = 0;
   // }
   
+  if (isNeighbour(xPosition, yPosition)) {
+    // swap() // make swap function
+  }
   
 }
 
@@ -95,31 +98,48 @@ function makeTiles() {
 function displayTiles() {
   for (let y = 0; y < cols; y++) {
     for (let x = 0; x < rows; x++) {
-      let tileIndex = board[y][x];
+      // let tileIndex = ;
       let tileImage;
-      console.log(board[y][x]);
-      if (tileIndex !== -1) {
-        tileImage = tiles[tileIndex].img;
+      // console.log(board[y][x]);
+      if (board[y][x] !== -1) {
+        tileImage = tiles[board[y][x]].img;
         image(tileImage, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
         // console.log(tileImage);
       }
+      else if (board[y][x] === -1) {
+        fill("white");
+        rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
+      }
       // console.log(tileIndex);
       noFill();
+      stroke(30);
       rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
     } 
+
   }
 }
 
-// function isNeighbour() {
-//   let blank;
-//   for (let y = 0; y < cols; y++) {
-//     for (let x = 0; x < rows; x++) {
-//       if (board[y][x] === -1) {
-//         blank = board[y][x];
-//         return blank;
-//       }
-//     } 
-//   }
+function isNeighbour(xPosition, yPosition) {
+  let blankY, blankX;
+  for (let y = 0; y < cols; y++) {
+    for (let x = 0; x < rows; x++) {
+      if (board[y][x] === -1) {
+        blankY = board[y];
+        blankX = board[y][x];
+      }
+    } 
+  }
 
-  
-// }
+  if (xPosition !== blankX && yPosition !== blankY) {
+    return false;
+  }
+
+  if (abs(xPosition - blankX) === 1 || abs(yPosition - blankY) === 1) {
+    return true;
+  }
+  return false;
+}
+
+function swap(xPosition, yPosition, board) {
+
+}
