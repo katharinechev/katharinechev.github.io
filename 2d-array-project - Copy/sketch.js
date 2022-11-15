@@ -25,7 +25,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  cellHeight = width/3/rows;
+  cellHeight = height/(rows+2);
   cellWidth = cellHeight;
   // cellWidth = height/3/cols;
   // if (cellHeight > cellWidth) {
@@ -57,8 +57,8 @@ function draw() {
 
 function mousePressed() {
   let mouseYimproved;
-  let yPosition = Math.floor(mouseY/cellHeight -3) 
-  let xPosition = Math.floor(mouseX/cellWidth - 4);
+  let yPosition = Math.floor(mouseY/cellHeight -2); 
+  let xPosition = Math.floor(mouseX/cellWidth -2);
   
   // if (mouseY > width/2-0.5*cols*cellWidth) {
   //   yPosition = Math.floor(mouseY/cellHeight -3);
