@@ -8,7 +8,6 @@
 let rows = 4;
 let cols = 4;
 // let numSquares = rows*cols;
-let imgScaler = 0.5;
 let tiles = []; 
 let board = []; // order of tiles 
 let cellWidth, cellHeight, grid, num, koalas;
@@ -38,7 +37,7 @@ function setup() {
 
 function draw() {
   background(220);
-  displayTiles();
+  displayTiles(board);
   
 }
 
@@ -57,24 +56,42 @@ function draw() {
 // }
 
 function mousePressed() {
-  let xPosition = Math.floor(mouseX/cellWidth);
-  let yPosition = Math.floor(mouseY/cellHeight);
-
-  // if (grid[yPosition][xPosition] === 0) {
-  //   grid[yPosition][xPosition] = 1;
-  // }
-  // else if (grid[yPosition][xPosition] === 1) {
-  //   grid[yPosition][xPosition] = 0;
-  // }
+  let mouseYimproved;
+  let yPosition = Math.floor(mouseY/cellHeight -3) 
+  let xPosition = Math.floor(mouseX/cellWidth - 4);
   
-  if (isNeighbour(xPosition, yPosition)) {
-    // swap() // make swap function
+  // if (mouseY > width/2-0.5*cols*cellWidth) {
+  //   yPosition = Math.floor(mouseY/cellHeight -3);
+  // }
+
+  // for (let y = 0; y < cols; y++) {
+  //   for (let x = 0; x < rows; x++) {
+  //     if (board[y][x] === 0) {
+  //       let topLCornerY = y*cellHeight + (height/5*3-0.5*rows*cellWidth);
+  //       let topLCornerX = x*cellWidth + (width/2-0.5*cols*cellWidth);
+  //     }
+  //   }
+  // }
+
+  if (mouseY < height/5*3-0.5*cols*cellWidth && (xPosition >=0 && xPosition <4)) {
+    mouseYimproved = mouseY + (height/5*3-0.5*cols*cellWidth);
+    yPosition = Math.floor(mouseYimproved/cellHeight);
+  }
+
+  console.log("xposition = " + xPosition);
+  console.log("mousex = " + mouseX);
+  
+  console.log("yposition = " + yPosition);
+  console.log("mousey = " + mouseY);
+  console.log("break------------");
+
+  if (isNeighbour(xPosition, yPosition, board)) {
+    swap(xPosition, yPosition, board);
   }
   
 }
 
 
-// attempt make it into 2d array ^
 function makeTiles() {
   for (let y = 0; y < rows; y++) {
     board.push([]);
@@ -95,37 +112,33 @@ function makeTiles() {
 
 }
 
-function displayTiles() {
+function displayTiles(board) {
   for (let y = 0; y < cols; y++) {
     for (let x = 0; x < rows; x++) {
-      // let tileIndex = ;
       let tileImage;
-      // console.log(board[y][x]);
       if (board[y][x] !== -1) {
         tileImage = tiles[board[y][x]].img;
-        image(tileImage, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
-        // console.log(tileImage);
+        image(tileImage, x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*rows*cellWidth), cellWidth, cellHeight);
       }
       else if (board[y][x] === -1) {
         fill("white");
-        rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
+        rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*rows*cellWidth), cellWidth, cellHeight);
       }
-      // console.log(tileIndex);
       noFill();
       stroke(30);
-      rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*cols*cellWidth), cellWidth, cellHeight);
+      rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*rows*cellWidth), cellWidth, cellHeight);
+      // console.log(y*cellWidth + (width/2-0.5*rows*cellWidth));
     } 
-
   }
 }
 
-function isNeighbour(xPosition, yPosition) {
+function isNeighbour(xPosition, yPosition, board) {
   let blankY, blankX;
   for (let y = 0; y < cols; y++) {
     for (let x = 0; x < rows; x++) {
-      if (board[y][x] === -1) {
-        blankY = board[y];
-        blankX = board[y][x];
+      if (board[yPosition][xPosition] === -1) {
+        blankY = board[yPosition];
+        blankX = board[yPosition][xPosition];
       }
     } 
   }
@@ -141,8 +154,16 @@ function isNeighbour(xPosition, yPosition) {
 }
 
 function swap(xPosition, yPosition, board) {
-  let nextTurn = board;
+  let nextTurn = board[xPosition];
+  board[xPosition] = board[yPosition];
+  board[yPosition] = nextTurn;
 
-  
+  // for (let y = 0; y < rows; y++) {
+  //   for (let x = 0; x < rows; x++) {
+      
+  //   }
+  // }
+
+  return board;
 
 }
