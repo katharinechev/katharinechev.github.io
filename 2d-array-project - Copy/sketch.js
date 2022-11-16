@@ -10,6 +10,7 @@ let cols = 4;
 // let numSquares = rows*cols;
 let tiles = []; 
 let board = []; // order of tiles 
+let isNeighbour = false;
 let cellWidth, cellHeight, grid, num, koalas;
 
 class Tile {
@@ -24,7 +25,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let canvas = createCanvas(1600, 789);
+  canvas.position((windowWidth - 1600)/2, (windowHeight - 789)/2);
   cellHeight = height/(rows+2);
   cellWidth = cellHeight;
   // cellWidth = height/3/cols;
@@ -36,7 +38,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(100, 150, 200);
   displayTiles(board);
   
 }
@@ -56,39 +58,23 @@ function draw() {
 // }
 
 function mousePressed() {
-  let mouseYimproved;
-  let yPosition = Math.floor(mouseY/cellHeight -2); 
-  let xPosition = Math.floor(mouseX/cellWidth -2);
-  
-  // if (mouseY > width/2-0.5*cols*cellWidth) {
-  //   yPosition = Math.floor(mouseY/cellHeight -3);
+  // let mouseYimproved;
+  let yPosition = Math.floor(mouseY/cellHeight -1.5); 
+  let xPosition = Math.floor(mouseX/cellWidth-4);
+
+  // if (mouseY < height/5*3-0.5*cols*cellWidth && (xPosition >=0 && xPosition <4)) {
+  //   mouseYimproved = mouseY + (height/5*3-0.5*cols*cellWidth);
+  //   yPosition = Math.floor(mouseYimproved/cellHeight);
   // }
 
-  // for (let y = 0; y < cols; y++) {
-  //   for (let x = 0; x < rows; x++) {
-  //     if (board[y][x] === 0) {
-  //       let topLCornerY = y*cellHeight + (height/5*3-0.5*rows*cellWidth);
-  //       let topLCornerX = x*cellWidth + (width/2-0.5*cols*cellWidth);
-  //     }
-  //   }
-  // }
-
-  if (mouseY < height/5*3-0.5*cols*cellWidth && (xPosition >=0 && xPosition <4)) {
-    mouseYimproved = mouseY + (height/5*3-0.5*cols*cellWidth);
-    yPosition = Math.floor(mouseYimproved/cellHeight);
-  }
-
+  console.log("break------------");
   console.log("xposition = " + xPosition);
-  console.log("mousex = " + mouseX);
   
   console.log("yposition = " + yPosition);
-  console.log("mousey = " + mouseY);
-  console.log("break------------");
+  console.log("boardyx " + board[yPosition][xPosition]);
 
-  if (isNeighbour(xPosition, yPosition, board)) {
-    swap(xPosition, yPosition, board);
-  }
-  
+  isNeighbour = false;
+  findBlank(xPosition, yPosition, board);
 }
 
 
@@ -113,8 +99,8 @@ function makeTiles() {
 }
 
 function displayTiles(board) {
-  for (let y = 0; y < cols; y++) {
-    for (let x = 0; x < rows; x++) {
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
       let tileImage;
       if (board[y][x] !== -1) {
         tileImage = tiles[board[y][x]].img;
@@ -127,43 +113,69 @@ function displayTiles(board) {
       noFill();
       stroke(30);
       rect(x*cellWidth + (width/2-0.5*cols*cellWidth), y*cellHeight + (height/5*3-0.5*rows*cellWidth), cellWidth, cellHeight);
-      // console.log(y*cellWidth + (width/2-0.5*rows*cellWidth));
     } 
   }
 }
 
-function isNeighbour(xPosition, yPosition, board) {
+function findBlank(xPosition, yPosition, board) {
   let blankY, blankX;
-  for (let y = 0; y < cols; y++) {
-    for (let x = 0; x < rows; x++) {
-      if (board[yPosition][xPosition] === -1) {
-        blankY = board[yPosition];
-        blankX = board[yPosition][xPosition];
-      }
-    } 
+
+
+
+  if (board[yPosition][xPosition -1] === -1) {
+    blankY = yPosition;
+    blankX = xPosition -1;
+    isNeighbour = true;
+  }
+  else if (board[yPosition][xPosition +1] === -1) {
+    blankY = yPosition;
+    blankX = xPosition +1;
+    isNeighbour = true;
+  }
+  else if (yPosition !== 3) {
+    if (board[yPosition +1][xPosition] === -1) {
+      blankY = yPosition +1;
+      blankX = xPosition;
+      isNeighbour = true;
+    }
+  }
+  else if (yPosition !== 0) {
+    if (board[yPosition - 1][xPosition] === -1) {
+      blankY = yPosition -1;
+      blankX = xPosition;
+      isNeighbour = true;
+    }
+  }
+  else if (yPosition === 1 || yPosition === 2 || yPosition === 3) {
+    if (board[yPosition -1][xPosition] === -1) {
+      blankY = yPosition -1;
+      blankX = xPosition;
+      isNeighbour = true;
+    }
+  }
+  else if (board[yPosition][xPosition] === -1) {
+    blankY = yPosition;
+    blankX = xPosition;
+  }
+  else {
+    isNeighbour = false;
   }
 
-  if (xPosition !== blankX && yPosition !== blankY) {
-    return false;
-  }
+  console.log("blank x = " + blankX);
+  console.log("blank y = " + blankY);
+  console.log("neighbour " + isNeighbour);
 
-  if (abs(xPosition - blankX) === 1 || abs(yPosition - blankY) === 1) {
-    return true;
+  if (isNeighbour) {
+    swap(xPosition, yPosition, blankX, blankY, board);
   }
-  return false;
 }
 
-function swap(xPosition, yPosition, board) {
-  let nextTurn = board[xPosition];
-  board[xPosition] = board[yPosition];
-  board[yPosition] = nextTurn;
-
-  // for (let y = 0; y < rows; y++) {
-  //   for (let x = 0; x < rows; x++) {
-      
-  //   }
-  // }
-
-  return board;
-
+function swap(xPosition, yPosition, blankX, blankY, board) {
+  console.log(board[yPosition][xPosition]);
+  let currentPiece = board[yPosition][xPosition];
+  board[yPosition][xPosition] = -1;
+  board[blankY][blankX] = currentPiece;
+  console.log("current piece " + currentPiece);
+  console.log("board at /prev tile/ " + board[yPosition][xPosition]);
+  console.log("board at /blank/ " + board[blankY][blankX]);
 }
