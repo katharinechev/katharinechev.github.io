@@ -120,7 +120,7 @@ function displayTiles(board) {
 function findBlank(xPosition, yPosition, board) {
   let blankY, blankX;
 
-
+  // simplify into four if else statements and then put edge checks inside
 
   if (board[yPosition][xPosition -1] === -1) {
     blankY = yPosition;
@@ -132,7 +132,7 @@ function findBlank(xPosition, yPosition, board) {
     blankX = xPosition +1;
     isNeighbour = true;
   }
-  else if (yPosition !== 3) {
+  if (yPosition !== 3) {
     if (board[yPosition +1][xPosition] === -1) {
       blankY = yPosition +1;
       blankX = xPosition;
