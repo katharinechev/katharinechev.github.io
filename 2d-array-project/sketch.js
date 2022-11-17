@@ -207,7 +207,7 @@ function words() {
   textSize(25);
   textStyle(ITALIC);
   text("Slide the pieces to recreate the picture! Use your mouse to click on the tiles beside the blank spot slide the tile over.", width/2, cellHeight/3*2 + 20);
-  text("Use the shuffle button to shuffle the picture.", width/2, cellHeight/3*2 + 50);
+  text("Use the shuffle button to shuffle the picture and start the puzzle!", width/2, cellHeight/3*2 + 55);
   
   // show if puzzle solved
   if (isSolved()) {
